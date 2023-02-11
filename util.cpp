@@ -2,29 +2,36 @@
 #include <sstream>
 #include <cctype>
 #include <algorithm>
+#include <ctype.h>
+#include <list>
 #include "util.h"
-
 using namespace std;
-std::string convToLower(std::string src)
-{
-    std::transform(src.begin(), src.end(), src.begin(), ::tolower);
-    return src;
-}
-
 /** Complete the code to convert a string containing a rawWord
     to a set of words based on the criteria given in the assignment **/
 std::set<std::string> parseStringToWords(string rawWords)
 {
-
-
-
-
-
-
-
-
-
-
+    std::set<std::string> keywords;
+    stringstream sstream(rawWords);
+    string word;
+    while (getline(sstream, word, ' '))
+    {
+      for(size_t i=0;i<word.size();i++)
+      {
+        if(ispunct(word[i]))
+        word.erase(i,i+1);
+      }
+      if(word.size()>=2)
+      {
+        word = convToLower(word);
+        keywords.insert(word);
+      }
+    }
+    return keywords;
+}
+std::string convToLower(std::string src)
+{
+    std::transform(src.begin(), src.end(), src.begin(), ::tolower);
+    return src;
 }
 
 /**************************************************

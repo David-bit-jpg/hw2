@@ -10,7 +10,7 @@ using namespace std;
 
 ProductParser::ProductParser()
 {
-
+   
 }
 
 
@@ -47,7 +47,6 @@ void ProductParser::parseCommonProduct(std::istream& is,
         return;
     }
     prodName_ = myline;
-
     lineno++;
     getline(is, myline);
     if(is.fail()) {
@@ -82,8 +81,12 @@ void ProductParser::parseCommonProduct(std::istream& is,
 
 ProductBookParser::ProductBookParser() : ProductParser()
 {
-}
 
+}
+ProductBookParser::~ProductBookParser()
+{
+  //delete bk;
+}
 Product* ProductBookParser::parseSpecificProduct(std::string category,
         std::istream& is,
         bool& error,
@@ -99,7 +102,6 @@ Product* ProductBookParser::parseSpecificProduct(std::string category,
         errorMsg = "Unable to read ISBN";
         return NULL;
     }
-
     lineno++;
     getline(is, author_);
     if(is.fail()) {
@@ -115,7 +117,6 @@ Product* ProductBookParser::parseSpecificProduct(std::string category,
         return NULL;
     }
     return makeProduct();
-
 }
 
 std::string ProductBookParser::categoryID()
@@ -130,15 +131,19 @@ std::string ProductBookParser::categoryID()
  */
 Product* ProductBookParser::makeProduct()
 {
-
-
+    Product* bk = new Book("book",prodName_,price_,qty_,isbn_,author_);
+    return bk;
 }
 
 
-ProductClothingParser::ProductClothingParser()
+ProductClothingParser::ProductClothingParser():ProductParser()
 {
-}
 
+}
+ProductClothingParser::~ProductClothingParser()
+{
+  //delete cl;
+}
 Product* ProductClothingParser::parseSpecificProduct(std::string category,
         std::istream& is,
         bool& error,
@@ -185,17 +190,19 @@ std::string ProductClothingParser::categoryID()
  */
 Product* ProductClothingParser::makeProduct()
 {
-
-
-
+    Product* cl = new Clothing("clothing",prodName_,price_,qty_,size_,brand_);
+    return cl;
 }
 
 
 
-ProductMovieParser::ProductMovieParser()
+ProductMovieParser::ProductMovieParser():ProductParser()
 {
 }
-
+ProductMovieParser::~ProductMovieParser()
+{
+  //delete mv;
+}
 
 Product* ProductMovieParser::parseSpecificProduct(std::string category,
         std::istream& is,
@@ -245,6 +252,6 @@ std::string ProductMovieParser::categoryID()
  */
 Product* ProductMovieParser::makeProduct()
 {
-
-
+    Product* mv = new Movie("movie",prodName_,price_,qty_,genre_,rating_);
+    return mv;
 }

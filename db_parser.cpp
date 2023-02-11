@@ -21,9 +21,7 @@ DBParser::DBParser()
 }
 DBParser::~DBParser()
 {
-    for(map<string, SectionParser*>::iterator it = parsers_.begin();
-            it != parsers_.end();
-            ++it) {
+    for(map<string, SectionParser*>::iterator it = parsers_.begin();it != parsers_.end();++it) {
         delete it->second;
     }
 }

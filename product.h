@@ -5,7 +5,7 @@
 #include <set>
 #include <vector>
 #include <algorithm>
-
+using namespace std;
 class Product {
 public:
     Product(const std::string category, const std::string name, double price, int qty);
@@ -30,7 +30,8 @@ public:
      * Outputs the product info in the database format
      */
     virtual void dump(std::ostream& os) const;
-
+    virtual void setHit(int i);
+    virtual int getHit() const;
     /**
      * Accessors and mutators
      */
@@ -38,12 +39,12 @@ public:
     std::string getName() const;
     int getQty() const;
     void subtractQty(int num);
-
+    
 protected:
     std::string name_;
     double price_;
     int qty_;
     std::string category_;
-
+    int hit_number;
 };
 #endif

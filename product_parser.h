@@ -62,6 +62,7 @@ class ProductBookParser : public ProductParser
 {
 public:
     ProductBookParser();
+    ~ProductBookParser();
     Product* parseSpecificProduct(std::string category,
                                   std::istream& is,
                                   bool& error,
@@ -72,10 +73,10 @@ public:
 
 protected:
     Product* makeProduct();
-
 private:
     std::string isbn_;
     std::string author_;
+    //Product* bk;
 };
 
 
@@ -83,6 +84,7 @@ class ProductClothingParser : public ProductParser
 {
 public:
     ProductClothingParser();
+    ~ProductClothingParser();
     Product* parseSpecificProduct(std::string category,
                                   std::istream& is,
                                   bool& error,
@@ -97,6 +99,7 @@ protected:
 private:
     std::string size_;
     std::string brand_;
+    //Product* cl;
 };
 
 
@@ -104,6 +107,7 @@ class ProductMovieParser : public ProductParser
 {
 public:
     ProductMovieParser();
+    ~ProductMovieParser();
     Product* parseSpecificProduct(std::string category,
                                   std::istream& is,
                                   bool& error,
@@ -118,6 +122,7 @@ protected:
 private:
     std::string genre_;
     std::string rating_;
+    //Product* mv;
 };
 
 #endif
